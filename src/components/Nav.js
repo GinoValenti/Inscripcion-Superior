@@ -1,23 +1,43 @@
+import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
-const Navegacion = () => {
+import { useCookies } from 'react-cookie';
+
+const Navegacion = ({ nombreUsuario }) => {
+  const [cookies, setCookie, removeCookie] = useCookies(['nombre', 'rol']);
+
+  const handleLogout = () => {
+    removeCookie('nombre');
+    removeCookie('rol');
+    alert('Sesión cerrada'); // Notificar al usuario que la sesión se ha cerrado
+    window.location.reload(); // Opcional: recargar la página
+  };
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/tabla">Tabla</Nav.Link>
-          
+            <Nav.Link as={Link} to="/">Home</Nav.Link>
+            {cookies.rol === "admin" && <Nav.Link as={Link} to="/tabla">Tabla</Nav.Link>}
+          </Nav>
+          <Nav>
+            {cookies.nombre ? (
+              <NavDropdown title={cookies.nombre} id="basic-nav-dropdown">
+                <NavDropdown.Item onClick={handleLogout}>Cerrar sesión</NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <Nav.Link as={Link} to="/login">Iniciar sesión</Nav.Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
   );
-}
+};
 
 export default Navegacion;

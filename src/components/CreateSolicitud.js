@@ -1,10 +1,11 @@
- import React, { useState } from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 
 const Solicitud = () => {
   const [nombre, setName] = useState("");
@@ -15,20 +16,20 @@ const Solicitud = () => {
   const [telefono, setTelefono] = useState("");
   const [id_carrera, setCarrera] = useState("");
   const [email, setEmail] = useState("");
-let titulo_secundario = "test"
-console.log(id_carrera);
-
+  let titulo_secundario = "test";
+  
+  const navigate = useNavigate(); // Inicializar useNavigate
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-  
     axios.post(`${process.env.REACT_APP_DB_URL}solicitudInscripcion`, {
-        nombre, apellido, DNI, direccion, fecha_nacimiento, telefono, id_carrera, email,titulo_secundario
+      nombre, apellido, DNI, direccion, fecha_nacimiento, telefono, id_carrera, email, titulo_secundario
     })
     .then(response => {
       console.log("Form submitted successfully", response.data);
-      alert("Solicitud enviada exitosamente!");
+      // Redirigir a la página de agradecimiento
+      navigate('/gracias');
     })
     .catch(error => {
       console.error("There was an error submitting the form!", error);
@@ -44,7 +45,6 @@ console.log(id_carrera);
           <Col md={8}>
             <Form onSubmit={handleSubmit}>
               <Row className="d-flex">
-              
                 <Col md={6} className="d-flex flex-column">
                   <Form.Group className="mb-3" >
                     <Form.Label>Nombre</Form.Label>
@@ -87,7 +87,6 @@ console.log(id_carrera);
                   </Form.Group>
                 </Col>
 
-            
                 <Col md={6} className="d-flex flex-column">
                   <Form.Group className="mb-3" >
                     <Form.Label>Apellido</Form.Label>
@@ -137,7 +136,6 @@ console.log(id_carrera);
       </Container>
     </>
   );
-}
+};
 
 export default Solicitud;
- 
