@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
-
+import {  useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [nombre, setNombre] = useState('');
   const [contraseña, setContraseña] = useState('');
   const [error, setError] = useState('');
   const [cookies, setCookie] = useCookies(['nombre']);
+  const navigate = useNavigate(); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,6 +22,7 @@ const Login = () => {
         setCookie('nombre', response.data.alumno.nombre);
         setCookie("rol", response.data.alumno.rol);
         alert(`Bienvenido, ${response.data.alumno.nombre}!`);
+        navigate("/tabla")
       }
     } catch (error) {
       setError('Error al iniciar sesión. Verifica tus credenciales.');

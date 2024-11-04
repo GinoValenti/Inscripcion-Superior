@@ -59,6 +59,7 @@ const SolicitudTable = () => {
                 <Column sortable field="telefono" header="Teléfono"></Column>
                 <Column sortable field="email" header="Email"></Column>
                 <Column sortable field="direccion" header="Dirección"></Column>
+                <Column sortable field="estado" header="Estado"></Column>
                 <Column body={actionBodyTemplate} header="Acciones" style={{ minWidth: '8rem' }}></Column>
             </DataTable>
         </div>

@@ -8,13 +8,14 @@ import Gracias from './components/Agradecimiento';
 import ProtectedRoute from './components/ProtectedRoute';
 import EditarSolicitud from './components/EditarSolicitud';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
+import EstadisticasInscriptos from './components/Estadisticas';
 function App() {
   return (
     <BrowserRouter> 
       <Navegacion />
       <Routes>
         <Route path='/login' element={<Login></Login>}></Route>
+        <Route path="/estadisticas" element={<EstadisticasInscriptos></EstadisticasInscriptos>}></Route>
         <Route path='/' element={<Solicitud />} />
         <Route 
           path='/tabla' 

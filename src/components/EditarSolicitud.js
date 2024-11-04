@@ -15,6 +15,7 @@ const EditarSolicitud = () => {
         fecha_nacimiento: '',
         telefono: '',
         email: '',
+        estado:""
     });
 
     useEffect(() => {
@@ -76,6 +77,15 @@ const handleSubmit = async (e) => {
                     <Form.Label>Email</Form.Label>
                     <Form.Control type="email" name="email" value={solicitud.email} onChange={handleChange} required />
                 </Form.Group>
+                <Form.Group controlId="estado">
+    <Form.Label>Estado</Form.Label>
+    <Form.Select style={{ marginBottom: '10px' }} name="estado" value={solicitud.estado} onChange={handleChange}>
+        <option value="pendiente">Pendiente</option>
+        <option value="en_proceso">En Proceso</option>
+        <option value="completado">Completado</option>
+    </Form.Select>
+</Form.Group>
+
                 <Button variant="primary" type="submit">Actualizar</Button>
             </Form>
         </Container>
